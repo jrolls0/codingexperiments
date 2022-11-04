@@ -3,7 +3,6 @@
     width:100%;
     text-align: center;
     background: #1abc9c;
-    color: white;
     position: absolute;
     top:0;
     padding-bottom: 5px; 
@@ -20,6 +19,8 @@
 
 canvas{
     margin-top: 120px;
+    background-image: url(https://www.cheatsheet.com/wp-content/uploads/2016/03/super-mario-bros-nes-1.jpg); 
+    background-position:80%;  
 }
 #game_name{
     color:red;
@@ -32,18 +33,29 @@ canvas{
     align-items: center;
     justify-content: center;
     position: relative;
+  
 }
 .jump-wrapper{
     text-align: center;
     justify-content: center;
+    padding-bottom: 0px;
+
 
 }
 
+.instructions {
+    font-size: 20px;
+    text-align: top;
+    text-align: center;
+}
 .jump{
-    height: 150px;
+    height: 100px;
+
 }
 
 button{
-    height: 80%;
+    height: 90%;
     width: 60%;
+    font-size: 30px;
 }
+
