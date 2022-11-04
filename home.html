@@ -11,7 +11,7 @@
 <body>
     <div class = "header">
         <h1 id="header_name">Jeremy & Sam Present:</h1>
-        <h1 id="game_name"> Super Mario!</h1>
+        <h1 id="game_name">Super Mario!</h1>
     </div>
 
 
@@ -22,93 +22,120 @@
 
     canvas {
         width: 100%;
-        height:35%;
         text-align:center;
         display: inline;
-        border:1px solid #d3d3d3;
+        border:0px solid #d3d3d3;
         position: relative;
-        background-image: url(https://www.cheatsheet.com/wp-content/uploads/2016/03/super-mario-bros-nes-1.jpg); 
+        background-image: url(https://wallpaperaccess.com/full/3739446.jpg); 
     }           
     </style>
 
     <script>
 
     var Mario;
-    var Obstacles = [];
+    var Pipes = [];
     var Score;
 
     function startGame() {
-        Mario = new component(40, 80, "red", 50, 600);
+        
+       
+        Mario = new component(50, 100,"red" , 50, 100 );
+        Score = new component("50px", "Times New Roman", "black", 820, 50, "text");
         Mario.gravity = 0.05;
-        Score = new component("60px", "Consolas", "black", 600, 50, "text");
-        GameArea.start();
+        Game.start();
+        
         Score.clear();
-        GameArea.clear();
+        Game.clear();
     }
 
-    var GameArea = {
+    var Game = {
         canvas : document.createElement("canvas"), 
         start : function() {
-
-            this.canvas.width = 1000;
-            this.canvas.height = 400;
             
             this.context = this.canvas.getContext("2d");
+            this.canvas.width = 1200;
+            this.canvas.height = 380;
+            
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-            this.frameNo = 0;
-            this.interval = setInterval(updateGameArea, 10);
+            
+            this.frameNum = 0;
+            this.interval = setInterval(updateGame, 12);
             },
+
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
     }
 
-    function component(width, height, color, x, y, type) {
+    function component(width, height, image, x, y, type) {
         this.type = type;
         this.score = 0;
         this.width = width;
         this.height = height;
-        this.speedX = 0;
-        this.speedY = 0;    
+        this.speed_x = 0;
+        this.speed_y = 0;    
         this.x = x;
         this.y = y;
         this.gravity = 0;
         this.gravitySpeed = 0;
+        
+        
+        this.draw = function () {
+            ctx = Game.context;
+            const img = new Image();
+            img.src = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/dee38e10-db68-462d-9df7-46b87d4c7876/ddxujlr-94b97111-a43e-4f91-8351-bbfb413704e4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2RlZTM4ZTEwLWRiNjgtNDYyZC05ZGY3LTQ2Yjg3ZDRjNzg3NlwvZGR4dWpsci05NGI5NzExMS1hNDNlLTRmOTEtODM1MS1iYmZiNDEzNzA0ZTQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.jQIk9OhfeZYkXokHoHIPxNodIVg7gzQQpR-G_RAbuos';
+            ctx.drawImage(img, 205, 145, 34, 62, this.x, this.y, this.width, this.height);
+        }
+    
         this.update = function() {
-            ctx = GameArea.context;
+            ctx = Game.context;
             if (this.type == "text") {
                 ctx.font = this.width + " " + this.height;
-                ctx.fillStyle = color;
+                ctx.fillStyle = image;
                 ctx.fillText(this.text, this.x, this.y);
-            } else {
-                ctx.fillStyle = color;
-                ctx.fillRect(this.x, this.y, this.width, this.height);
             }
+         else {
+            ctx.fillStyle = image;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+             }
         }
-        this.newPos = function() {
+        
+
+        this.newPosition = function() {
             this.gravitySpeed += this.gravity;
-            this.x += this.speedX;
-            this.y += this.speedY + this.gravitySpeed;
-            this.hitBottom();
+            this.x += this.speed_x;
+            this.y += this.speed_y + this.gravitySpeed;
+            this.hitBottomorTop();
+            
         }
-        this.hitBottom = function() {
-            var rockbottom = GameArea.canvas.height - this.height;
-            if (this.y > rockbottom) {
-                this.y = rockbottom;
+
+        this.hitBottomorTop= function() {
+            var canvasbottom = Game.canvas.height - this.height;
+            var canvastop= 0;
+           
+            if (this.y > canvasbottom) {
+                this.y = canvasbottom;
+                this.gravitySpeed = 0;
+            }
+            
+            if (this.y < canvastop) {
+                this.y = canvastop;
                 this.gravitySpeed = 0;
             }
         }
-        this.crashWith = function(otherobj) {
+
+         
+        this.willCrash = function(pipe) {
             var left = this.x;
             var right = this.x + (this.width);
             var top = this.y;
             var bottom = this.y + (this.height);
-            var otherleft = otherobj.x;
-            var otherright = otherobj.x + (otherobj.width);
-            var othertop = otherobj.y;
-            var otherbottom = otherobj.y + (otherobj.height);
+            var pipeleft = pipe.x;
+            var piperight = pipe.x + (pipe.width);
+            var pipetop = pipe.y;
+            var pipebottom = pipe.y + (pipe.height);
             var crash = true;
-            if ((bottom < othertop) || (top > otherbottom) || (right < otherleft) || (left > otherright)) {
+            if ((bottom < pipetop) || (top > pipebottom) || (right < pipeleft) || (left > piperight)) {
                 crash = false;
         
             }
@@ -117,55 +144,70 @@
         }
     }
 
-    function updateGameArea() {
+    function updateGame() {
         var x, height, gap, minHeight, maxHeight, minGap, maxGap;
-        for (i = 0; i < Obstacles.length; i += 1) {
-            if (Mario.crashWith(Obstacles[i])) {
+        for (i = 0; i < Pipes.length; i += 1) {
+            if (Mario.willCrash(Pipes[i])) {
                 return;
             } 
         }
-        GameArea.clear();
-        GameArea.frameNo += 1;
+       
+        Game.clear();
+        Game.frameNum += 1;
 
-        if (GameArea.frameNo == 1 || everyinterval(180)) {
-            x = GameArea.canvas.width;
-            minHeight = 80;
-            maxHeight = 200;
+        if (Game.frameNum == 1 || everyinterval(180)) {
+            x = Game.canvas.width;
+            minHeight = 40;
+            maxHeight = 160;
             height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-            minGap = 180;
-            maxGap = 220;
-            gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-            Obstacles.push(new component(20, height, "green", x, 0));
-            Obstacles.push(new component(20, x - height - gap, "green", x, height + gap));
+           
+            gap = Math.floor(Math.random()+180);
+            Pipes.push(new component(25, height, "green", x, 0));
+            Pipes.push(new component(25, x - height - gap, "green", x, height + gap));
         }
-        for (i = 0; i < Obstacles.length; i += 1) {
-            Obstacles[i].x += -1;
-            Obstacles[i].update();
+        
+        for (i = 0; i < Pipes.length; i += 1) {
+            Pipes[i].x += -1;
+            Pipes[i].update();
         }
-        Score.text="SCORE: " + GameArea.frameNo;
+
+       
+    
+        
+        Score.text= "SCORE: " + Game.frameNum;
         Score.update();
-        Mario.newPos();
-        Mario.update();
+        Mario.newPosition();
+        Mario.draw();
     }
 
     function everyinterval(n) {
-        if ((GameArea.frameNo / n) % 1 == 0) {return true;}
+        if ((Game.frameNum / n) % 1 == 0) {
+            return true;
+        }
+       
         return false;
     }
 
-    function accelerate(n) {
+    function newspeed(n) {
         Mario.gravity = n;
     }
+    
+    
+     
+   
     </script> 
     <br>
 </div>
-
+ 
 <div class="jump-wrapper">
-    
-    <div class="jump">
-        <button onmousedown="accelerate(-0.1)" onmouseup="accelerate(0.1)" style="color:black;background-color:greenyellow">JUMP!</button>
+     <div class="jump">
+        <button onmousedown="newspeed(-0.1)" onmouseup="newspeed(0.1)" style="color:black;background-color:greenyellow">JUMP!</button>
     </div>
 </div>
+
+<div class="instructions">
+    Click the "JUMP!" button to avoid the obstacles 
+ </div>
 
 </body>
 </html>
