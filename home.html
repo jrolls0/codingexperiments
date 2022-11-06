@@ -10,43 +10,52 @@
 
 <body>
     <div class = "header">
+
+        
         <h1 id="header_name">Jeremy & Sam Present:</h1>
         <h1 id="game_name">Super Mario!</h1>
+           
+
     </div>
 
 
+<body onload = " startGame()" ></body>
+<div class = "game">
+       
 
-<div class = "game"> 
-    <body onload = "startGame()" ></body>
+
+    
     <style style = "text-align:center">
-
-    canvas {
-        width: 100%;
-        text-align:center;
-        display: inline;
-        border:0px solid #d3d3d3;
-        position: relative;
-        background-image: url(https://wallpaperaccess.com/full/3739446.jpg); 
-    }           
+        canvas {
+            width: 100%;
+            text-align:center;
+            display: inline;
+            border:0px solid #d3d3d3;
+            position: relative;
+            background-image: url(https://wallpaperaccess.com/full/3739446.jpg); 
+        }           
     </style>
 
-    <script>
 
+    <script>
     var Mario;
     var Pipes = [];
     var Score;
+    
+    var HighScorePrint;
+    var GameOver;
 
     function startGame() {
         
-       
         Mario = new component(50, 100,"red" , 50, 100 );
-        Score = new component("50px", "Times New Roman", "black", 820, 50, "text");
+        Score = new component("50px", "Times New Roman", "black", 747, 100, "text");
+        HighScorePrint =  new component("50px", "Times New Roman", "gold", 800, 50, "text");
         Mario.gravity = 0.05;
         Game.start();
-        
-        Score.clear();
-        Game.clear();
+    
     }
+    
+   
 
     var Game = {
         canvas : document.createElement("canvas"), 
@@ -99,6 +108,7 @@
             ctx.fillRect(this.x, this.y, this.width, this.height);
              }
         }
+
         
 
         this.newPosition = function() {
@@ -144,10 +154,27 @@
         }
     }
 
+    
+    function restartGame() {
+       
+        var name = localStorage.getItem('highscore');
+        
+        if (name < Game.frameNum) {
+            name = Game.frameNum;
+            localStorage.setItem("highscore", name);
+        }
+
+        location.reload();
+    }
+
     function updateGame() {
         var x, height, gap, minHeight, maxHeight, minGap, maxGap;
         for (i = 0; i < Pipes.length; i += 1) {
             if (Mario.willCrash(Pipes[i])) {
+                GameOver = new component("60px", "Times New Roman", "red", 450, 220, "text");
+                GameOver.text = "Game Over!";
+                GameOver.update();
+            
                 return;
             } 
         }
@@ -173,8 +200,12 @@
 
        
     
+        var name = localStorage.getItem('highscore');
+
+        Score.text= "Current Score: " + Game.frameNum;
+        HighScorePrint.text= "High Score: " + name;
         
-        Score.text= "SCORE: " + Game.frameNum;
+        HighScorePrint.update();
         Score.update();
         Mario.newPosition();
         Mario.draw();
@@ -192,22 +223,21 @@
         Mario.gravity = n;
     }
     
-    
-     
-   
     </script> 
     <br>
 </div>
  
 <div class="jump-wrapper">
-     <div class="jump">
-        <button onmousedown="newspeed(-0.1)" onmouseup="newspeed(0.1)" style="color:black;background-color:greenyellow">JUMP!</button>
-    </div>
+    <button class = "restartbutt" onmousedown="restartGame()">New Game</button>
+    <div class="jump">
+        <button class = "jumpbutt"  onmousedown="newspeed(-0.1)" onmouseup="newspeed(0.1)" style="color:black;background-color:greenyellow">JUMP!</button>
+    </div> 
 </div>
 
-<div class="instructions">
-    Click the "JUMP!" button to avoid the obstacles 
- </div>
-
 </body>
+
+<div class="instructions">
+    Click and hold the "JUMP!" button to avoid the obstacles 
+ </div>
 </html>
+
