@@ -19,7 +19,7 @@
     </div>
 
 
-<body onload = " startGame()" ></body>
+<body onload = " startGame()" onkeydown = "newspeed(-0.1)" onkeyup="newspeed(0.1)" ></body>
 <div class = "game">
        
 
@@ -48,8 +48,8 @@
     function startGame() {
         
         Mario = new component(40, 80,"red" , 50, 100 );
-        Score = new component("50px", "Times New Roman", "black", 747, 100, "text");
-        HighScorePrint =  new component("50px", "Times New Roman", "gold", 800, 50, "text");
+        Score = new component("50px", "Times New Roman", "black", 747, 120, "text");
+        HighScorePrint =  new component("50px", "Times New Roman", "gold", 800, 70, "text");
         Mario.gravity = 0.05;
         Game.start();
     
@@ -171,7 +171,7 @@
         var x, height, gap, minHeight, maxHeight, minGap, maxGap;
         for (i = 0; i < Pipes.length; i += 1) {
             if (Mario.willCrash(Pipes[i])) {
-                GameOver = new component("60px", "Times New Roman", "red", 450, 220, "text");
+                GameOver = new component("60px", "COMIC NEUE", "brown", 450, 220, "text");
                 GameOver.text = "Game Over!";
                 GameOver.update();
             
@@ -198,12 +198,13 @@
             Pipes[i].update();
         }
 
-       
+      
+        
+        var name = localStorage.getItem('highscore');
+        
         if (name == "") {
             name = 0;
         }
-        
-        var name = localStorage.getItem('highscore');
 
         Score.text= "Current Score: " + Game.frameNum;
         HighScorePrint.text= "High Score: " + name;
@@ -230,17 +231,15 @@
     <br>
 </div>
  
-<div class="jump-wrapper">
+<div class="restart-wrapper">
+    <div class="instructions">
+        *Click and hold any key to move up and avoid the pipes*
+     </div>
     <button class = "restartbutt" onmousedown="restartGame()">New Game</button>
-    <div class="jump">
-        <button class = "jumpbutt"  onmousedown="newspeed(-0.1)" onmouseup="newspeed(0.1)" style="color:black;background-color:greenyellow">JUMP!</button>
-    </div> 
 </div>
 
 </body>
 
-<div class="instructions">
-    Click and hold the "JUMP!" button to avoid the obstacles 
- </div>
+
 </html>
 
