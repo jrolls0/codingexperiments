@@ -1,22 +1,79 @@
 .header {
-    width:100%;
-    text-align: center;
-    background: #1abc9c;
+    width: 100%;
+    background: #05f772;
     position: absolute;
     top:0;
     padding-bottom: 5px; 
     padding-top: 5px;
+    display: grid;
+    height: 118px;
+    align-content: center;
+    grid-template-columns: 15% 70% 15%;
 
 }
 
-#header_name{
+.dropdown {
+   
+    position: relative;
+    display: inline-block;
+    
+}
+
+.dropbtn {
+    background-color: green;
+    color: white;
+    font-size: 18px;
+    border: none;
+    margin-right: 5px;
+    width: 90px;
+    height:60px
+  }
+
+
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 20px;
+    border: black;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+
+  }
+  
+.dropdown-content a {
     color: black;
-    font-size: small;
-    font-size: 20px;
-    right: 50px;
-    font-family: fantasy;
-
+    border-color: red;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+   
 }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  
+
+
+ 
+.returnhomewrapper {
+    text-align: center;
+}
+.gamenamewrapper {
+    text-align: center;
+}
+#gamename{
+    color:red;
+    font-size: 60px;
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+
 
 canvas{
     margin-top: 120px;
@@ -39,8 +96,10 @@ canvas{
    
 }
 .restart-wrapper{
-  width: 100%;
-  text-align: center;
+    display: grid;
+    height: 100px;
+    align-content: center;
+    grid-template-columns: 33% 33% 33%;
 }
 
 
@@ -50,18 +109,97 @@ canvas{
 .restartbutt {
     color:black;
     height: 100%;
-    width: 30%;
+    /* width: 30%; */
     font-size: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
     background-color:rgb(122, 101, 144);
-  
-
 }
 
 
-.instructions {
+
+.easymode {
+    color: green;
+}
+.mediummode {
+    color: yellow;
+}
+
+.hardmode {
+    color: red;
+}
+
+.welcomecontainer {
+    position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+ 
+}
+
+
+.toppage{
+   
     font-size: 30px;
-    margin-bottom: 20px;
-    text-align: center;
+    color:rgb(249, 7, 7)
 }
+
+.gamemodes {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.mediumgamewrapper {
+    margin-top: 10px;
+}
+
+.hardgamewrapper {
+    margin-top: 10px;
+}
+
+.easybtn {
+    background-color: #05f772;
+    font-size: 20px;
+    padding: 10px;
+    width: 160px;
+}
+.mediumbtn {
+    background-color: yellow;
+    font-size: 20px;
+    padding: 10px;
+    width: 160px;
+}
+
+.hardbtn {
+    background-color: red;
+    font-size: 20px;
+    padding: 10px;
+    width: 160px;
+}
+.finalmessage {
+    text-align: center;
+     margin-top:150px;
+     font-size: 25px;
+     color:red;
+
+ }
+
+
+ .instructionscontainer {
+   
+    margin-top: 20px;
+  
+ }
+
+.instructionsheader {
+    margin-left: 20px;
+    font-size: 30px;
+}
+.instructions {
+
+    margin-left: 20px;
+    margin-top: 10px;
+   font-size: 25px;
+}
+
