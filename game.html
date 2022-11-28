@@ -64,11 +64,11 @@
         var noobie = localStorage.getItem('noobie');
 
         function checknoobeasy () {
-          var name0 = localStorage.getItem('easyhighscore2');
-          var name1 = localStorage.getItem('mediumhighscore2');
-          var name2 = localStorage.getItem('hardhighscore2');
+          var name0 = localStorage.getItem('easyhighscore');
+          var name1 = localStorage.getItem('mediumhighscore');
+          var name2 = localStorage.getItem('hardhighscore');
 
-          if (name0 == null && name1 == null && name2 == null && noobie != "1") {
+          if (name0 =="0" && name1 == "0" && name2 == "0" && noobie != "1") {
             location.href = "instructions.html";
             localStorage.setItem('noobie', 1);
           }
