@@ -64,11 +64,7 @@
         var noobie = localStorage.getItem('noobie');
 
         function checknoobeasy () {
-          var name0 = localStorage.getItem('easyhighscore');
-          var name1 = localStorage.getItem('mediumhighscore');
-          var name2 = localStorage.getItem('hardhighscore');
-
-          if (name0 =="0" && name1 == "0" && name2 == "0" && noobie != "1") {
+          if (noobie != "1") {
             location.href = "instructions.html";
             localStorage.setItem('noobie', 1);
           }
@@ -78,25 +74,17 @@
          }
 
         function checknoobmedium () {
-          var name0 = localStorage.getItem('easyhighscore');
-          var name1 = localStorage.getItem('mediumhighscore');
-          var name2 = localStorage.getItem('hardhighscore');
-
-          if (name0 == null && name1 == null && name2 == null) {
+            if (noobie != "1") {
             location.href = "instructions.html";
             localStorage.setItem('noobie', 1);
-          }
+            } 
           else {
             location.href = "medium.html" ;
             } 
           }
         
         function checknoobhard () {
-          var name0 = localStorage.getItem('easyhighscore');
-          var name1 = localStorage.getItem('mediumhighscore');
-          var name2 = localStorage.getItem('hardhighscore');
-
-          if (name0 == null && name1 == null && name2 == null) {
+            if (noobie != "1") {
             location.href = "instructions.html";
             localStorage.setItem('noobie', 1);
           }
@@ -111,5 +99,3 @@
 </body>
 </html>
 
-
-       
