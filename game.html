@@ -39,21 +39,15 @@
         
         <div class="gamemodes">
             <div class = "easygamewrapper">
-                <!-- <a href="easy.html" > -->
                     <button class="easybtn" onclick="checknoobeasy()">Easy</button>
-                <!-- </a> -->
             </div>
             
             <div class = "mediumgamewrapper">
-                <a href="medium.html" >
-                    <button class="mediumbtn">Medium</button>
-                </a>
+                    <button class="mediumbtn" onclick="checknoobmedium()">Medium</button>
             </div>
         
             <div class = "hardgamewrapper">
-                <a href="hard.html" >
-                    <button class="hardbtn">Hard</button>
-                </a>
+                    <button class="hardbtn" onclick="checknoobhard()">Hard</button>
             </div>
           
         </div>
@@ -89,7 +83,7 @@
             localStorage.setItem('noobie', 1);
           }
           else {
-            location.href = "medium.html";
+            location.href = "hard.html";
             } 
           }
         
@@ -98,3 +92,8 @@
     </script>
 </body>
 </html>
+
+
+       
+
+       
